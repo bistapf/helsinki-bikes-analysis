@@ -1,7 +1,7 @@
 # Import libraries
 import streamlit as st
 import numpy as np
-import plotly.graph_objects as go
+# import plotly.graph_objects as go
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -30,6 +30,19 @@ plt.ylabel('Number of departures')
 
 
 st.pyplot(fig)
+
+
+#
+# arr_station_counts = df['return_id'].value_counts()
+# df_2019['arrival_station_frequency'] = df_2019['return_id'].map(arr_station_counts)
+# df_arrivals=df_2019[['return_longitude','return_latitude','arrival_station_frequency']].copy().drop_duplicates()
+# sns.scatterplot(data=df_arrivals, x="return_longitude", y="return_latitude", hue="arrival_station_frequency", size="arrival_station_frequency", legend=True)
+
+# df_departure = df_2019.groupby('departure_id')
+# df_departure['distance_(m)'].mean()
+# df_2019['average_distance'] = df_2019['departure_id'].map(df_departure['distance_(m)'].mean())
+# df_meandistance=df_2019[['departure_longitude','departure_latitude','average_distance']].copy().drop_duplicates()
+# sns.scatterplot(data=df_meandistance, x="departure_longitude", y="departure_latitude", hue="average_distance", size="average_distance", legend=True)
 
 
 # fig = go.Figure()
