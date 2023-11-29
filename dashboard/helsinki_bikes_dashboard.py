@@ -4,6 +4,7 @@ import numpy as np
 # import plotly.graph_objects as go
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 st.title('Helsinki Bikes Analysis')
 
@@ -18,19 +19,33 @@ def load_dataframe():
 
 df = load_dataframe()
 
-#check on number of rides per weekday
-departures_per_weekday = df['departure_weekday'].value_counts()
 
-#and plot as histogram
-fig = plt.figure(figsize=(8, 6))
-departures_per_weekday.plot(kind='bar')
-plt.xlabel('Weekday')
-plt.ylabel('Number of departures')
+#check on number of rides per weekday
+# st.title('Number of rides per weekday')
+# departures_per_weekday = df['departure_weekday'].value_counts()
+
+# #and plot as histogram
+# plot_weekday = plt.figure(figsize=(8, 6))
+# departures_per_weekday.plot(kind='bar')
+# plt.xlabel('Weekday')
+# plt.ylabel('Number of departures')
 # plt.show()
 
 
-st.pyplot(fig)
+# st.pyplot(plot_weekday)
 
+#map of most frequently used stations for departure
+dep_station_counts = df['departure_id'].value_counts()
+df['departure_station_frequency'] = df['departure_id'].map(dep_station_counts)
+df_departures=df[['departure_longitude','departure_latitude','departure_station_frequency']].copy().drop_duplicates()
+map_plot = sns.scatterplot(data=df_departures, x="departure_longitude", y="departure_latitude", hue="departure_station_frequency", size="departure_station_frequency", legend=True)
+st.pyplot(map_plot.get_figure())
+
+
+# import plotly.express as px
+# fig = px.scatter(df, x="departure_longitude", y="departure_latitude", color='departure_station_frequency')
+# fig.show()
+# st.plotly_chart(fig)
 
 #
 # arr_station_counts = df['return_id'].value_counts()
